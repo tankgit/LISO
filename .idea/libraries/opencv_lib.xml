@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="opencv-lib">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/lib" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>
