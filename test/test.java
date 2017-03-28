@@ -16,21 +16,21 @@ public class test {
     public static void main(String[] args) throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-        Feature[] features= new Feature[]{new ColorHistogram()};
-        Transforms colorSpace=new Transforms(Transforms.COLOR_RGB);
+        Feature[] features= new Feature[]{new ColorHistogram(),new DHash()};
+        Transforms colorSpace=new Transforms(Transforms.COLOR_HSV);
         Indexer id=new Indexer(
                 "imgs",
                 "index",
                 features,
                 colorSpace);
-        id.createIndex();
+        //id.createIndex();
 
-        double[] featureWeights=new double[]{1};
-        Distance[] distances=new Distance[]{new HistogramIntersection()};
+        double[] featureWeights=new double[]{0.7,0.311677};
+        Distance[] distances=new Distance[]{new Euclidean(),new Hamming()};
         Searcher s=new Searcher(
                 "index",
                 colorSpace,
-                40);
+                90);
         s.setImage("imgs/1.jpg");
         s.setFeatureType(features,featureWeights);
         s.setDistanceType(distances);

@@ -47,12 +47,12 @@ public class Transforms {
         }
     }
 
-    public void transform(Mat src){
+    public void transform(Mat src,Mat dst){
         switch (this.type){
             case COLOR_RGB:
                 break;
             case COLOR_HSV:
-                BGR2HSV(src,src);
+                BGR2HSV(src,dst);
                 break;
         }
     }
