@@ -1,6 +1,6 @@
 package pers.tank.liso.factory;
 
-import pers.tank.liso.factory.distances.CityBlock;
+import pers.tank.liso.factory.distances.Manhattan;
 import pers.tank.liso.factory.distances.Distance;
 import pers.tank.liso.factory.distances.Euclidean;
 import pers.tank.liso.factory.distances.HistogramIntersection;
@@ -27,7 +27,7 @@ public class DistanceType {
                     distanceClasses.add(Euclidean.class);
                     break;
                 case CITY_BLOCK:
-                    distanceClasses.add(CityBlock.class);
+                    distanceClasses.add(Manhattan.class);
                     break;
                 case HISTOGRAM_INTERSECTION:
                     distanceClasses.add(HistogramIntersection.class);

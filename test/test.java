@@ -25,7 +25,7 @@ public class test {
                 colorSpace);
         //id.createIndex();
 
-        double[] featureWeights=new double[]{0.7,0.311677};
+        double[] featureWeights=new double[]{1,4};
         Distance[] distances=new Distance[]{new Euclidean(),new Hamming()};
         Searcher s=new Searcher(
                 "index",
@@ -40,8 +40,11 @@ public class test {
         for(int i=0;i<results.size();i++) {
             System.out.print(i + "\t|\t");
             System.out.print(String.format("%.2f", results.get(i).getDistance()) + "\t|\t");
-            for (int j = 0; j < featureWeights.length; j++) {
-                System.out.print(String.format("%.2f", results.get(i).getDistanceSet()[j])+" x "+featureWeights[j]+"\t");
+            for (int j = 0,k=0; j < featureWeights.length; j++) {
+                if(featureWeights[j]!=0){
+                    System.out.print(String.format("%.2f", results.get(i).getDistanceSet()[k])+" x "+featureWeights[j]+"\t");
+                    k++;
+                }
             }
             System.out.print("|\t"+docs[i].getField("path").stringValue());
             System.out.println();

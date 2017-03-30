@@ -7,9 +7,6 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
-import pers.tank.liso.factory.DistanceType;
-import pers.tank.liso.factory.FeatureType;
-import pers.tank.liso.factory.ImgProcess;
 import pers.tank.liso.factory.Transforms;
 import pers.tank.liso.factory.distances.Distance;
 import pers.tank.liso.factory.features.Feature;
@@ -36,8 +33,10 @@ public class Searcher {
     private Distance[] distances;
     private Transforms colorSpace;
     private IndexReader indexReader;
+    private TreeSet<SearchResult> resultTree =new TreeSet<>();
     private ArrayList<SearchResult> results;
     private double searchTime=0;
+    private double[] temW;
 
     public Searcher(String indexPath,Transforms colorSpace) throws IOException {
         this.indexPath=indexPath;
@@ -73,17 +72,39 @@ public class Searcher {
     }
 
     public void setFeatureType(Feature[] features, double[] featureWeights) throws Exception {
-        this.features=features;
-        if(this.features.length!=featureWeights.length){
+        if(features.length!=featureWeights.length){
             throw new Exception("The size of featureWeights must be matched with features.");
         }
-        this.featureWeight=featureWeights;
+        temW=normalizeWeights(featureWeights);
+        int num=0;
+        for (double aTemW : temW) {
+            if (aTemW != 0) {
+                num++;
+            }
+        }
+        this.features=new Feature[num];
+        this.featureWeight=new double[num];
+        for (int i=0,j=0;i<temW.length;i++){
+            if(temW[i]!=0){
+                this.features[j]=features[i];
+                this.featureWeight[j]=temW[i];
+                j++;
+            }
+        }
+
+
     }
 
     public void setDistanceType(Distance[] distances) throws Exception {
-        this.distances=distances;
-        if(this.distances.length!=this.features.length){
+        if(distances.length!=this.temW.length){
             throw new Exception("The size of distances must be matched with features.");
+        }
+        this.distances=new Distance[features.length];
+        for(int i=0,j=0;i<temW.length;i++){
+            if(temW[i]!=0){
+                this.distances[j]=distances[i];
+                j++;
+            }
         }
     }
 
@@ -104,6 +125,9 @@ public class Searcher {
     private double weightedDistance(double[] distanceSet){
         double dist=0;
         for(int i=0;i<distanceSet.length;i++){
+            if(featureWeight[i]==0.0){
+
+            }
             dist+=distanceSet[i]*featureWeight[i];
         }
         return dist;
@@ -121,9 +145,8 @@ public class Searcher {
             throw new Exception("Distances unset");
         }
         this.setTargetFeatures();
-        TreeSet<SearchResult> results=new TreeSet<>();
         this.searchTime=System.currentTimeMillis();
-        results.clear();
+        resultTree.clear();
         for(int i=0;i<this.docSize;i++){
             double[] distanceSet=new double[this.features.length];
             for(int j=0;j<this.features.length;j++) {
@@ -134,21 +157,32 @@ public class Searcher {
                         this.distances[j]);
             }
             double distance =this.weightedDistance(distanceSet);
-            if (results.size() < maxHit) {
-                results.add(new SearchResult(i,distanceSet,distance));
+            if (resultTree.size() < maxHit) {
+                resultTree.add(new SearchResult(i,distanceSet,distance));
                 if (this.maxDist < distance) {
                     this.maxDist = distance;
                 }
             } else if (this.maxDist > distance) {
-                results.remove(results.last());
-                results.add(new SearchResult(i,distanceSet,distance));
-                this.maxDist = results.last().getDistance();
+                resultTree.remove(resultTree.last());
+                resultTree.add(new SearchResult(i,distanceSet,distance));
+                this.maxDist = resultTree.last().getDistance();
             }
         }
 
-        this.results=new ArrayList<>(results.size());
-        this.results.addAll(results);
+        this.results=new ArrayList<>(resultTree.size());
+        this.results.addAll(resultTree);
         this.searchTime=System.currentTimeMillis()-this.searchTime;
+    }
+
+    private double[] normalizeWeights(double[] featureWeight){
+        double sum=0;
+        for (double aFeatureWeight : featureWeight) {
+            sum += aFeatureWeight;
+        }
+        for (int i=0;i<featureWeight.length;i++){
+            featureWeight[i]=featureWeight[i]/sum;
+        }
+        return featureWeight;
     }
 
     public double getSearchTime(){

@@ -2,11 +2,11 @@
   <artifact type="jar" name="LISO:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/LISO_jar</output-path>
     <root id="archive" name="LISO.jar">
-      <element id="module-output" name="LISO" />
       <element id="library" level="project" name="opencv-lib" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../Programs/linux/lucene-6.3.0/queryparser/lucene-queryparser-6.3.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../Programs/linux/opencv-3.1.0/release_java/bin/opencv-310.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../Programs/linux/lucene-6.3.0/core/lucene-core-6.3.0.jar" path-in-jar="/" />
+      <element id="module-output" name="LISO" />
     </root>
   </artifact>
 </component>
