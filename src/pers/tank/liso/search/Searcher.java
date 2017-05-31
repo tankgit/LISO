@@ -158,6 +158,9 @@ public class Searcher {
             }
             double distance =this.weightedDistance(distanceSet);
             if (resultTree.size() < maxHit) {
+                if(resultTree.contains(new SearchResult(i,distanceSet,distance))){
+                    distance+=0.000001;   //if two result have the same score, the TreeSet can just store one result. So add a tiny number to make it different.
+                }
                 resultTree.add(new SearchResult(i,distanceSet,distance));
                 if (this.maxDist < distance) {
                     this.maxDist = distance;
@@ -168,7 +171,6 @@ public class Searcher {
                 this.maxDist = resultTree.last().getDistance();
             }
         }
-
         this.results=new ArrayList<>(resultTree.size());
         this.results.addAll(resultTree);
         this.searchTime=System.currentTimeMillis()-this.searchTime;
