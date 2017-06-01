@@ -1,14 +1,12 @@
+package pers.tank.liso.factory.distances;
+
+import org.opencv.core.Mat;
+
 /**
- * Created by derek on 3/23/17.
+ * Created by derek on 6/1/17.
  */
-public class test2 {
-
-    public static void main(String[] args) {
-        byte a=(byte)129;
-        byte b=(byte)127;
-        System.out.println((int)a-(int)b);
-    }
-
+public class Mahalanobis implements Distance {
+    @Override
     public double getDistance(byte[] src, byte[] dst) throws Exception {
         double mean;
         double[][] A=new double[2][src.length];
@@ -42,6 +40,11 @@ public class test2 {
             dist+=XS*X[i];
         }
         dist= Math.sqrt(dist);
-        return 0;
+        return normalize(dist);
+    }
+    //TODO: normalization for M dist to be finished
+    @Override
+    public double normalize(double dist) {
+        return dist/100;
     }
 }

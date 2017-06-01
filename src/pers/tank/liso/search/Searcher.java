@@ -91,8 +91,6 @@ public class Searcher {
                 j++;
             }
         }
-
-
     }
 
     public void setDistanceType(Distance[] distances) throws Exception {
@@ -133,7 +131,6 @@ public class Searcher {
         return dist;
     }
 
-    //TODO: normalize the distance before set weights;
     public void search() throws Exception {
         if(this.docSize==0){
             throw new Exception("Documents not loaded.");

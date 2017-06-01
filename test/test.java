@@ -16,23 +16,24 @@ public class test {
     public static void main(String[] args) throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-        Feature[] features= new Feature[]{new EdgeDirectionHist()};
+        Feature[] features= new Feature[]{new EdgeDirectionHist(),new ColorHistogram(),new DHash(),new PHash()};
         Transforms colorSpace=new Transforms(Transforms.COLOR_RGB);
         Indexer id=new Indexer(
                 "imgs",
                 "index",
                 features,
                 colorSpace);
-        id.createIndex();
+        //id.createIndex();
 
         double[] featureWeights=new double[]{1};
-        Distance[] distances=new Distance[]{new HistogramIntersection()};
+        Feature[] featureSearch=new Feature[]{new EdgeDirectionHist()};
+        Distance[] distances=new Distance[]{new Euclidean()};
         Searcher s=new Searcher(
                 "index",
                 colorSpace,
                 20);
         s.setImage("imgs/1.jpg");
-        s.setFeatureType(features,featureWeights);
+        s.setFeatureType(featureSearch,featureWeights);
         s.setDistanceType(distances);
         s.search();
         ArrayList<SearchResult> results=s.getResults();
