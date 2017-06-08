@@ -10,8 +10,6 @@ This project is under developing.
 
 ## Content
 
-If you just want to use the lib, just add **./out/artifacts/LISO_jar/LISO.jar** as dependency to your project.
-
 package: 
 -pers.tank.liso.
   - factory.
